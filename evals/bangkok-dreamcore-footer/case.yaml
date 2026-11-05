@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: bangkok-dreamcore-footer
+expected_outcome: |
+  A working HTML page auraphil-footer.html (plus the engine file) whose footer scene follows Bangkok solar time with the dreamcore palette, the Auraphil brand and the requested link columns, verified at several hours on desktop and phone widths.

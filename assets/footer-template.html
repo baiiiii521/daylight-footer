@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daylight Footer — template</title>
+<!-- EDIT: fonts. Any pairing works; keep a CJK fallback in --font-body if the site serves Chinese. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* ── Daylight footer ───────────────────────────────────────────────
+   The painted scene sits on top, fades into --df-bg, and the columns
+   sit on that same colour. Change tokens here; nothing else hard-codes colour. */
+:root{
+  --df-bg:#fdfcfa; --df-fg:#1c1a27; --df-muted:#6c6879; --df-line:#ebe7ef; --df-chip:#ffffff; --df-chip-line:#e1dde8; --df-heart:#ef4a6f;
+  --df-display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --df-body:"Figtree","PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --df-gutter:clamp(16px,4.5vw,72px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --df-bg:#0c0e1b; --df-fg:#ecebf5; --df-muted:#9a98b0; --df-line:#22253c; --df-chip:#151933; --df-chip-line:#2c3150; --df-heart:#ff6b8a; color-scheme:dark }
+}
+:root[data-theme="dark"]{ --df-bg:#0c0e1b; --df-fg:#ecebf5; --df-muted:#9a98b0; --df-line:#22253c; --df-chip:#151933; --df-chip-line:#2c3150; --df-heart:#ff6b8a; color-scheme:dark }
+
+body{margin:0;background:var(--df-bg);color:var(--df-fg);font-family:var(--df-body)}
+
+.df{background:var(--df-bg);color:var(--df-fg);font-family:var(--df-body);line-height:1.5;-webkit-font-smoothing:antialiased}
+.df a:focus-visible,.df button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.df-wrap{padding-left:max(var(--df-gutter),env(safe-area-inset-left,0px));padding-right:max(var(--df-gutter),env(safe-area-inset-right,0px))}
+
+/* Scene: wide panorama on desktop, taller re-composed scene on phones (engine handles the art). */
+.df-scene{position:relative;height:clamp(260px,37.5vw,640px);overflow:hidden}
+.df-scene::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 52%,color-mix(in srgb,var(--df-bg) 55%,transparent) 78%,var(--df-bg) 98%)}
+
+.df-top{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,minmax(0,13.5rem));gap:40px 28px;padding-block:12px 80px}
+.df-brand{min-width:0}
+.df-logo{display:flex;align-items:center;gap:10px;font-family:var(--df-display);font-size:29px;font-weight:500;letter-spacing:-.02em;line-height:1;color:inherit;text-decoration:none}
+.df-tag{color:var(--df-muted);max-width:36ch;font-size:17px;line-height:1.6;margin:16px 0 28px}
+.df-social{display:flex;gap:12px;flex-wrap:wrap}
+.df-social a{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--df-line);border-radius:8px;color:var(--df-fg);background:var(--df-chip);transition:border-color .2s}
+.df-social a:hover{border-color:var(--df-fg)}
+.df-col{min-width:0}
+.df-col h3{font-size:16.5px;font-weight:600;margin:2px 0 20px}
+.df-col ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.df-col a{color:var(--df-muted);text-decoration:none;font-size:16px}
+.df-col a:hover{color:var(--df-fg)}
+.df-bot{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;border-top:1px solid var(--df-line);padding-block:22px max(30px,env(safe-area-inset-bottom,0px));color:var(--df-muted);font-size:14.5px}
+.df-bot .df-right{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.df-bot strong{color:var(--df-fg);font-weight:600;font-variant-numeric:tabular-nums}
+.df-lang{font:500 13px var(--df-body);padding:5px 11px;border-radius:6px;border:1px solid var(--df-chip-line);background:var(--df-chip);color:var(--df-fg);cursor:pointer}
+
+@media (max-width:900px){ .df-top{grid-template-columns:repeat(3,minmax(0,1fr))} .df-brand{grid-column:1/-1} }
+@media (max-width:640px){
+  .df-scene{height:min(118vw,470px)}
+  .df-scene::after{background:linear-gradient(to bottom,transparent 62%,color-mix(in srgb,var(--df-bg) 55%,transparent) 84%,var(--df-bg) 99%)}
+  .df-top{gap:32px 14px;padding-block:4px 44px}
+  .df-logo{font-size:26px}
+  .df-tag{font-size:15.5px;margin:12px 0 22px}
+  .df-col h3{font-size:15px;margin-bottom:14px}
+  .df-col ul{gap:12px}
+  .df-col a{font-size:14.5px}
+  .df-bot{flex-direction:column;align-items:flex-start;font-size:13.5px}
+  .df-bot .df-right{width:100%;justify-content:space-between}
+}
+@media (max-width:340px){ .df-top{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (pointer:coarse){ .df-social a{width:44px;height:44px} }
+</style>
+</head>
+<body>
+
+<!-- EDIT: page content above the footer -->
+
+<footer class="df">
+  <!-- The engine fills this box with two canvases + a grain layer. It only needs a height. -->
+  <div class="df-scene" id="daylight" role="img" aria-label="Illustrated landscape whose sky follows the local time of day"></div>
+
+  <div class="df-wrap">
+    <div class="df-top">
+      <div class="df-brand">
+        <!-- EDIT: logo mark + brand name -->
+        <a class="df-logo" href="/">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 13.5a6 6 0 0 1 12 0"/><path d="M12 3.5v2M4.6 6.6l1.4 1.4M19.4 6.6 18 8"/>
+            <path d="M3 17.5c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0"/>
+          </svg>
+          Brand Name
+        </a>
+        <p class="df-tag" data-i18n="tagline">一句话说明品牌价值主张，控制在两行以内。</p>
+        <div class="df-social">
+          <!-- EDIT: real profile URLs; remove the ones you don't use -->
+          <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="X"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 4h4.5L20 20h-4.5z"/><path d="M20 4l-6.6 7.2M4 20l6.6-7.2"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.5v.01M12 17v-6.5M12 13.5a2.5 2.5 0 0 1 5 0V17"/></svg></a>
+          <a href="#" aria-label="Telegram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M21 4 3 11.2l6.2 2.3L11.5 20l3.3-4.2 4.7 3.7z"/><path d="M9.2 13.5 21 4"/></svg></a>
+        </div>
+      </div>
+      <!-- EDIT: link columns (3 columns keep the phone layout balanced; 2 or 4 also work) -->
+      <nav class="df-col" aria-labelledby="df-h1">
+        <h3 id="df-h1" data-i18n="c1">主要链接</h3>
+        <ul><li><a href="#" data-i18n="l11">关于我们</a></li><li><a href="#" data-i18n="l12">工作方式</a></li><li><a href="#" data-i18n="l13">为什么选择我们</a></li><li><a href="#" data-i18n="l14">客户案例</a></li></ul>
+      </nav>
+      <nav class="df-col" aria-labelledby="df-h2">
+        <h3 id="df-h2" data-i18n="c2">公司</h3>
+        <ul><li><a href="#" data-i18n="l21">愿景与使命</a></li><li><a href="#" data-i18n="l22">团队</a></li><li><a href="#" data-i18n="l23">加入我们</a></li><li><a href="#" data-i18n="l24">合作伙伴</a></li></ul>
+      </nav>
+      <nav class="df-col" aria-labelledby="df-h3">
+        <h3 id="df-h3" data-i18n="c3">条款</h3>
+        <ul><li><a href="#" data-i18n="l31">服务条款</a></li><li><a href="#" data-i18n="l32">隐私政策</a></li><li><a href="#" data-i18n="l33">Cookie 设置</a></li></ul>
+      </nav>
+    </div>
+    <div class="df-bot">
+      <span data-i18n="rights">© 2026 Brand Name 版权所有</span>
+      <span class="df-right">
+        <span id="df-synced"></span>
+        <button class="df-lang" id="df-lang" type="button">EN</button>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="daylight-scene.js"></script>
+<script>
+(() => {
+  // EDIT: copy for every language you ship. Delete the toggle + dictionary for a single-language site.
+  const T = {
+    zh: {tagline: '一句话说明品牌价值主张，控制在两行以内。', c1: '主要链接', l11: '关于我们', l12: '工作方式', l13: '为什么选择我们', l14: '客户案例',
+         c2: '公司', l21: '愿景与使命', l22: '团队', l23: '加入我们', l24: '合作伙伴', c3: '条款', l31: '服务条款', l32: '隐私政策', l33: 'Cookie 设置',
+         rights: '© 2026 Brand Name 版权所有', synced: '天空同步', toggle: 'EN'},
+    en: {tagline: 'One line on what the brand does for its customers, two lines at most.', c1: 'Main links', l11: 'About us', l12: 'How we work', l13: 'Why choose us', l14: 'Case studies',
+         c2: 'Company', l21: 'Vision & mission', l22: 'Our team', l23: 'Careers', l24: 'Partners', c3: 'Legal', l31: 'Terms & conditions', l32: 'Privacy policy', l33: 'Cookie settings',
+         rights: '© 2026 Brand Name. All rights reserved.', synced: 'Sky synced to', toggle: '中文'},
+  };
+  let lang = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en', last = null;
+  const synced = document.getElementById('df-synced'), toggle = document.getElementById('df-lang');
+
+  function renderSynced(s) {
+    last = s || last; if (!last) return;
+    synced.textContent = T[lang].synced + (lang === 'zh' ? ' · ' : ' ');
+    const b = document.createElement('strong'); b.textContent = `${last.city[lang]} ${last.time}`; synced.append(b);
+  }
+  function setLang(l) {
+    lang = l; document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('.df [data-i18n]').forEach(n => { const v = T[l][n.dataset.i18n]; if (v) n.textContent = v; });
+    toggle.textContent = T[l].toggle; renderSynced();
+  }
+  toggle.addEventListener('click', () => setLang(lang === 'zh' ? 'en' : 'zh'));
+
+  // EDIT: city key (hcm, hanoi, bkk, sha, bj, szx, gz, hk, sg), a {lat, lon, timeZone, zh, en} object, or 'viewer'.
+  DaylightScene.create(document.getElementById('daylight'), {
+    city: 'hcm',
+    palette: 'painterly',   // 'painterly' | 'dreamcore' | 'vintage' | custom keyframes
+    grain: true,
+    onChange: renderSynced,
+  });
+  setLang(lang);
+})();
+</script>
+</body>
+</html>

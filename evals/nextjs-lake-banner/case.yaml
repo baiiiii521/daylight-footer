@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: nextjs-lake-banner
+expected_outcome: |
+  A client-only React component components/DaylightFooter.tsx that loads the engine and the lake preset inside useEffect, mounts with city sha and preset lake, destroys on unmount, and does not execute browser code during server rendering.
